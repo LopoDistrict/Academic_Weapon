@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A faire</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/todo_style.css" />
+</head>
+<body>
+    <div class="main">
+        <img src="../img/info.png" style="float: right; height: 45px; " onclick="showF('help')">
+        <div class="help" id="help">
+            <p onclick="hideF('help')" style="left: 1px;"><</p>
+            <h1>À propos de l'app</h1>
+              <p>Développeur principal : K0m0d0</p>
+              <p>Graphiste : K0m0d0 (via https://icons8.com/icons)</p>
+              <p>L'application ne contient ni contenu ni publicité payants. Si vous aimez les applications et souhaitez me soutenir, vous pouvez faire: </p>
+              <p>1- Discutez du programme avec vos amis, votre famille et les réseaux sociaux</p>
+              <p>2. Évaluez-nous sur le Play Store</p>
+              <p>Vous pouvez me donner de l'argent en cliquant sur le bouton/lien ici (tout l'argent sera d'abord utilisé pour mettre à jour l'application)</p>
+              <button onclick="window.location.href='https://en.tipeee.com/k0m0d0'" id="redirect">Redirection vers la page spécifiée</button>
+        </div>
+
+        <script>
+            function hideF(what){
+                $("#" + what).fadeOut();
+            }
+            function showF(what){
+                $("#" + what).fadeIn();
+            }
+        </script>
+        
+        
+        
+        <div class="content-wrap">
+        <div class="task" id="task">
+            <p id="close"  onclick="hide()">X</p>
+            <input type="text" id="titlet"  placeholder="Saisir une nouvelle tâche" maxlength="29">
+            <textarea id="desct"  placeholder="Description de la tâche" maxlength="290"></textarea>
+            
+            <div class="options" id="options">
+                <div class="input-group">
+                    <input type="checkbox" id="prioritize" name="prioritize">
+                    <label for="prioritize" id="prioritizetxt">prioriser</label>
+                  </div>
+
+                  <div class="input-group">
+                    <input type="date" id="start" name="start" value="2024-03-22"  />
+                    <label for="start">Dead line</label>
+                  </div>
+                  
+                  <div class="input-group2">
+                    <input type="color" id="color" name="color" value="#083550"/>
+                    <label for="color" id="colortxt">Couleur</label>
+                  </div>                
+            </div>
+                
+
+            <button id="create" onclick="add()">Créer</button>
+            <p id="option" onclick="deploy()">+ Plus d'options</p>
+        </div>
+
+        <div class="warning" id="warning">
+            <p id="warn" style="color: rgb(138, 2, 2);">⚠ Enter a name ⚠</p>
+            <p id="warntxt">In order to create a task, you need at leat to name it.</p>
+        </div>
+        <div class="taskmain" id="taskmain">
+        <h1 id="title">A faire</h1>
+        <div class="top"></div>
+        
+    </div>
+    <div class="container" id="container">
+        <div class="bottom_container">
+            <button id="add" onclick="task()">+</button>
+        </div>
+    </div>
+<footer class="navbar">
+    <a  class="active">A faire</a>
+    <a style="opacity: 50%; font-size: 15px;" onclick="window.location.href='promodoro.html'">Pomodoro</a>
+    <a style="opacity: 50%; font-size: 15px;" onclick="window.location.href='hub.html'"       >Communauté</a>
+    <a style="opacity: 50%; font-size: 15px;" onclick="window.location.href='note_maker.html'">Notes</a>
+  </footer>
+        
+    </div>
+</div>
+<script src="../js/task_js.js"></script>
+</body>
+</html>

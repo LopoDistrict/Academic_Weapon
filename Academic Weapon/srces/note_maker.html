@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="../css/style_note.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+  <script src="../js/script_note.js"></script>
+  <div class="container">
+    <div class="main">
+      <div class="top"></div>
+      <div class="center">
+        
+        <div class="new">
+          <div class="button" id="add" onclick="show('newItem') + darker('add') + darker('notes')">
+            <img src="../img/icon/plus.png" height="70px" id="addimg">
+          </div>
+
+
+          <div class="param" id="param">
+            <p><</p>
+            <p>Crear un nuevo documento</p>
+            <input type="text" id="nameInput" placeholder="Enter the name of your document">
+            <button id="create">Crear</button>
+          </div>
+
+          
+          <div class="notes" id="notes">
+            <!---
+            <div class="note" id="note">
+              <img src="../img/icon/notePreview.png" id="imgPreview" style="padding-left: 20px; padding-right: 10px;">
+              <h3 style="padding-top: 10px;">Maths Expo</h3>
+              <h3 >Flash Cards</h3>
+            </div> -->
+
+          </div>
+
+          <div class="notesType" id="notesType">
+            <img src="../img/icon/back.png" onclick="hide('notesType') + clearer('add') + clearer('notes')" style="height: 30px;
+             margin-top: 10px;">
+            <div class="titleNotes" id="titleNotes" >
+            <h3 style="padding-top: 40px;">elegir el tipo de toma de notas:</h3 ></div>
+  
+
+
+                <div class="notesExemple" id="empty" onclick="plshelpmegod('Default')+ darker('add') "> 
+                  <img src="../img/icon/notePreview.png" id="imgPreview" >
+                  <p id="titleNote">Por defecto</p>
+                  <p id="desc">Empieza tu estudio con apuntes en blanco. Deje que su imaginación
+                    tome el control.
+                  </p>
+                </div>
+  
+
+
+                <div class="notesExemple" id="empty" onclick="window.location='notes/flashCards.html'">
+                  <img src="../img/icon/notePreview.png" id="imgPreview">
+                  <p id="titleNote">Tarjetas Flash</p>
+                  <p id="desc">Las tarjetas flash son una verdadera ayuda para la memoria, 
+                    te ayudan a recordar elementos recurrentes. 
+                  </p>
+                </div>
+
+
+
+                <div class="notesExemple" id="bullet"  onclick="plshelpmegod('Bullet')+ darker('add') ">
+                  <img src="../img/icon/notePreview.png" id="imgPreview">
+                  <p id="titleNote">Bullet</p>
+                  <p id="desc">Método eficaz para tomar notas rápidas, es eficiente y flexible para
+                    organizar tu pensamiento.
+                  </p>
+                </div>
+
+                <div class="notesExemple" id="empty" style="filter: brightness(70%);">
+                  <img src="../img/icon/notePreview.png" id="imgPreview" style="filter: brightness(70%);">
+                  <p id="titleNote">Cornell - Próximamente</p>
+                  <p id="desc">Organiza tus notas con el método Cornell. Este método 
+                    realmente ayuda a resumir tus lecciones.
+                  </p>
+                </div>
+
+                <div class="notesExemple" id="mindMap" style="filter: brightness(70%);; margin-bottom: 40%;">
+                  <img src="../img/icon/notePreview.png" id="imgPreview">
+                  <p id="titleNote">Mapa Mental - Próximamente</p>
+                  <p id="desc">El mapa mental te ayuda a comprender tus lecciones fácilmente, obligándote a generar conexiones y enlazar ideas. 
+                    Te obliga a generar conexiones y enlazar ideas.
+                  </p>
+                </div>
+  
+          </div>
+          <script>
+            function hide(what){    
+            $(document).ready(function(){
+                $("#"+what).fadeOut();
+
+              });
+        }
+
+function show(what){
+    
+    $(document).ready(function(){
+        $("#"+what).fadeIn();
+
+      });
+}
+
+
+            const baseStorage = {
+    "ItemNotes": [
+        {
+
+        }
+    ]
+};
+//localStorage.clear();
+
+if (!localStorage.getItem("notes")) {
+    
+    localStorage.setItem("notes", JSON.stringify(baseStorage));
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const storedTasks = localStorage.getItem("notes");
+    console.log(storedTasks)
+    
+    if (storedTasks) {
+        // Step 2: Parse the stored JSON string back into an object
+        const tasks = JSON.parse(storedTasks);
+        console.log(tasks)
+        // Assuming tasks.itemsTask is an array of tasks
+        
+            // Step 3: Loop through each task and display it
+            tasks.ItemNotes.forEach(task => {
+
+                displayTask(task); 
+            });
+        
+    }
+    // If there's no data, do nothing
+});
+
+function displayTask(task) {
+    for (const key in task) {
+        const taskDetails = task[key];
+
+        if (Array.isArray(taskDetails) && taskDetails.length === 3) { // Check if task details are correct
+            const [name, type, id] = taskDetails;            
+            console.log('rewriting tasks');
+
+            // Create a new block for the note
+            const blockNote = document.createElement('div');
+            blockNote.setAttribute("id", id.toString());
+            blockNote.classList.add("note"); // Optional: Add a class for styling
+            blockNote.setAttribute("onclick", `send(this, "${type}")`); // Add the onclick handler
+
+            // Set the inner HTML of the block
+            blockNote.innerHTML = `
+                <img src="../img/icon/notePreview.png" id="imgPreview" style="padding-left: 20px; padding-right: 10px;">
+                <h3 style="padding-top: 10px;">${name}</h3>
+                <h3>${type}</h3>
+            `;
+
+            // Find the 'notes' container and prepend the new note
+            const notes = document.getElementById('notes');    
+            notes.insertBefore(blockNote, notes.firstChild); // Insert at the top
+        }
+    }
+}
+
+            function plshelpmegod(type){
+              show('param')
+              console.log(type)
+              hide('notesType') 
+              clearer('add')
+              document.getElementById('create').addEventListener('click', function() {                
+                create(type);
+              });
+            }
+
+            function ranId(){
+              var nb = "";
+              for (let i=0; i <8;i++){
+                  nb += Math.floor(Math.random() * (9 - 0 + 1)) + 0
+            }return nb;
+        }
+
+            function send(block, type){ //get attribut d'un ancien 
+              console.log(type)
+              const task = block.closest('.note');
+              const taskId = task.getAttribute('id'); 
+              window.location.href = `notes/${type}.html?arg=${encodeURIComponent(taskId)}`;
+            }
+
+
+            function create(type) {
+  // Retrieve the name input value
+  const name = document.getElementById('nameInput').value;
+  
+  // Create the note block
+  const blockNote = document.createElement('div');
+  blockNote.innerHTML = `<div class="note" id="note" onclick="send(this, ${type})">
+                            <img src="../img/icon/notePreview.png" id="imgPreview" style="padding-left: 20px; padding-right: 10px;">
+                            <h3 style="padding-top: 10px;">${name}</h3>
+                            <h3>${type}</h3>
+                        </div>`;
+
+  // Assign a random ID to the blockNote
+  const argValue = ranId();
+  blockNote.setAttribute("id", argValue.toString());
+
+  // Log the random ID
+  console.log(argValue);
+
+  // Prepare the new item for storage
+  const newItem = {
+      [argValue]: [name, type, argValue],
+  };
+
+  // Retrieve existing data from localStorage, or initialize if null
+  const data = localStorage.getItem("notes");
+  const jsonData2 = JSON.parse(data) || { "ItemNotes": [] };
+
+  // Check for an existing item and update or add new
+  const index = jsonData2.ItemNotes.findIndex(item => Object.keys(item)[0] === argValue.toString());
+  if (index !== -1) {
+      jsonData2.ItemNotes[index] = newItem;
+  } else {
+      jsonData2.ItemNotes.push(newItem);
+  }
+
+  // Update localStorage
+  localStorage.setItem("notes", JSON.stringify(jsonData2));
+  console.log(JSON.parse(localStorage.getItem("notes")));
+
+  // Append the new blockNote to the 'notes' container
+  const notes = document.getElementById('notes');
+  notes.insertBefore(blockNote, notes.firstChild);
+
+  // Optionally redirect to another page with query parameters
+  document.getElementById('nameInput').value = " ";
+  console.log(type)
+  window.location.href =`notes/${type}.html?arg=${encodeURIComponent(argValue)}`;
+}
+
+
+          </script>
+
+          <div class="newItem" id="newItem">
+            <img src="../img/icon/back.png" onclick="hide('newItem') + clearer('add')  + clearer('notes')" style="height: 30px;
+             margin-top: 10px;">
+            
+            <h3 id="titlenItem">¿Qué estudiamos hoy?</h3>
+
+            <div class="items">
+              <div class="file" id="file" onclick="notes()">                
+                <p id="newFile">Nota</p>
+                <img src="../img/icon/note.png" height="80px">
+              </div> 
+
+
+              <div class="folder" id="folder">
+                <p id="newFolder">Carpeta - Próximamente</p>
+                <img src="../img/icon/folder.png" height="80px">
+              </div> 
+            </div>
+        </div>
+
+        </div>
+        <div class="storedItems">
+
+        </div>
+      </div>
+    </div>
+    <script>
+          
+    </script>
+    <footer class="navbar">
+      <a   style="opacity: 50%;" onclick="window.location.href ='to_do.html'">a hacer</a>
+      <a style="opacity: 50%;"   onclick="window.location.href ='promodoro.html'">Pomodoro</a>
+      <a style="opacity: 50%;"   onclick="window.location.href ='hub.html'">Comunidad</a>
+      <a class="active">Notas</a>
+    </footer>
+  </div>
+  
+</body>
+</html>

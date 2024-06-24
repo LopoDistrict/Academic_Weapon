@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pomodoro Timer</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="../js/NoSleep.js"></script>
+
+    
+    <link rel="stylesheet" href="../css/promodoro_style.css" />
+  </head>
+  <body>
+    <h1>Промодоро</h1>
+    <div class="content-wrap">
+    <div class="container" id="container">
+
+      <!--
+      <div class="information" id="information">
+          <p style="margin-top: 15px; float: left; margin-left: 15px;" onclick="hide('information')">X</p>
+          <h3 id="titleInf" style="margin-top: 20px;  margin-right: 15px;">Що таке Помодоро? 1/5</h3>
+          <p id="infTxt" style="margin-top: 10px;">Техніка Pomodoro - це ефективний метод управління часом. В перекладі з італійської це означає "Помідор" 🍅.</p>
+          <p onclick="information()" style=" float: right; margin-right: 25px;" >></p>
+      </div>-->
+    
+
+      <div class="section-container">
+        <button id="focus" class="btn btn-timer btn-focus">Фокус</button>
+        <button id="shortbreak" class="btn btn-shortbreak">Коротка перерва</button>
+        <button id="longbreak" class="btn btn-longbreak">Довга перерва</button>
+      </div>
+      <div id="separation"></div>
+
+      <div class="time-btn-container">
+        <span id="time"></span>
+        <div class="btn-container">
+          <button id="btn-start" class="show">Старт</button>
+          <button id="btn-pause" class="hide">Пауза</button>
+          <button id="btn-reset" class="hide">
+            <i class="fa-solid fa-rotate-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      
+
+  </script>
+  </div>
+  <footer class="navbar">
+    <a onclick="window.location.href ='to_do.html'" style=" font-size: 13px;opacity: 50%;">Зробити</a>
+    <a class=" active">Промодоро</a>
+    <a style="font-size: 13px; opacity: 50%;" onclick="window.location.href ='hub.html'">Спільнота</a>
+    <a style="font-size: 13px; opacity: 50%;" onclick="window.location.href ='note_maker.html'">Примітки</a>
+  </footer>
+    <script src="../js/script.js"></script>
+  </body>
+</html>

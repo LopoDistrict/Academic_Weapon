@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do list</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/todo_style.css" />
+</head>
+<body>
+    <div class="main">
+        <img src="../img/info.png" style="float: right; height: 45px; " onclick="showF('help')">
+        <div class="help" id="help">
+        <p onclick="hideF('help')" style="left: 1px;"><</p>
+
+        <h1>Acerca de la aplicación</h1>
+             <p>Desarrollador principal: K0m0d0</p>
+             <p>Diseñador gráfico: K0m0d0 (con la ayuda de https://icons8.com/icons)</p>
+
+             <p>La aplicación no tiene contenido pago ni anuncios. Si te gustan las aplicaciones y quieres apoyarme puedes hacer algunas cosas</p>
+             <p>1- Habla sobre la aplicación con tus amigos, familiares y en las redes sociales</p>
+             <p>2- Califícanos en Play Store</p>
+             <p>Puedes darme dinero haciendo clic en el botón/enlace aquí abajo (todo el dinero se usaría para actualizar la aplicación en primer lugar)</p>
+             <button onclick="window.location.href='https://en.tipeee.com/k0m0d0'" id="redirect">Redirigir a la página</button>
+        </div>
+
+        <script>
+            function hideF(what){
+                $("#" + what).fadeOut();
+            }
+            function showF(what){
+                $("#" + what).fadeIn();
+            }
+        </script>
+        
+        
+        <div class="content-wrap">
+        <div class="task" id="task">
+            <p id="close"  onclick="hide()">X</p>
+            <input type="text" id="titlet"  placeholder="Introducir una nueva tarea" maxlength="29">
+            <textarea id="desct"  placeholder="Descripción de la tarea" maxlength="290"></textarea>
+            
+            <div class="options" id="options">
+                <div class="input-group">
+                    <input type="checkbox" id="prioritize" name="prioritize">
+                    <label for="prioritize" id="prioritizetxt">Priorice</label>
+                  </div>
+
+                  <div class="input-group">
+                    <input type="date" id="start" name="start" value="2024-03-22"  />
+                    <label for="start">Dead line</label>
+                  </div>
+                  
+                  <div class="input-group2">
+                    <input type="color" id="color" name="color" value="#083550"/>
+                    <label for="color" id="colortxt">Selector de color</label>
+                  </div>                
+            </div>
+                
+
+            <button id="create" onclick="add()">Cree</button>
+            <p id="option" onclick="deploy()">+ Más opciones</p>
+        </div>
+
+        <div class="warning" id="warning">
+            <p id="warn" style="color: rgb(138, 2, 2);">⚠ Enter a name ⚠</p>
+            <p id="warntxt">In order to create a task, you need at leat to name it.</p>
+        </div>
+        <div class="taskmain" id="taskmain">
+        <h1 id="title">Lista de tareas</h1>
+        <div class="top"></div>
+        
+    </div>
+    <div class="container" id="container">
+        <div class="bottom_container">
+            <button id="add" onclick="task()">+</button>
+        </div>
+    </div>
+<footer class="navbar">
+    <a  class="active">a hacer</a>
+    <a style="opacity: 50%;" onclick="window.location.href ='promodoro.html'">Pomodoro</a>
+    <a style="opacity: 50%;" onclick="window.location.href ='hub.html'">Comunidad</a>
+    <a style="opacity: 50%;" onclick="window.location.href ='note_maker.html'">Notas</a>
+  </footer>
+        
+    </div>
+</div>
+<script src="../js/task_js.js"></script>
+</body>
+</html>

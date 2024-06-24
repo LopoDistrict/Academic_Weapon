@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+#mindMap, #mindMap2{
+    display: none;
+    border-radius: 10px;
+    height: 200px;
+    width: 70%;    
+    z-index: 1;
+    position: absolute;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    left: 15%;
+}
+#mindMap{
+    background-color: rgb(0, 119, 255);
+}
+#mindMap2{
+    background-color: rgb(33, 179, 0);
+}
+
+#back{
+    float: left;
+    margin-left: 20px;
+}
+
+#CreateNode, #CreateNode2{
+    border-radius: 7px;
+    border: transparent;
+    height: 35px;
+    width: 60%;
+    margin-left: 10%;
+    margin-top: 20px;
+    
+  }
+
+#CreateNode{
+    background-color: rgb(33, 179, 0);
+}
+#CreateNode2{
+    background-color: rgb(0, 119, 255);
+}
+
+
+#main, #main2{
+    border-radius: 5px;
+    margin-top: 10px;
+    font-family: 'Roboto', sans-serif;
+    height: 25px;
+    border: transparent;
+    width: 70%;
+}

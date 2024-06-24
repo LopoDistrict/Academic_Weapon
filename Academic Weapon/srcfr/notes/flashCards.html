@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="../css/flashCards.css" />
+</head>
+<body>
+<div class="main">
+    <button id="create" onclick="show('edit')"><img src="../../img/icon/plus.png" style="height: 60px;"></button>
+    <h1>Flash cards</h1>
+
+    <div class="edit" id="edit">
+        <p id="back" onclick="hide('edit')"><</p>
+        <h3>New Flash Card</h3>
+        <textarea placeholder="Question" id="Question" cols="30" rows="10"></textarea>
+        <textarea placeholder="Answer" id="Answer" cols="30" rows="10" style="margin-left: 40px;"></textarea>
+        <div class="color">
+            <input type="color" id="color" name="color" value="#083550"/>
+            <label for="color" id="colortxt">Color picker</label>
+        </div>
+        <button id="creation" onclick="create()">Create</button>
+    </div>
+    <div class="mainCards" id="mainCards" style="    margin-bottom: 140px;">
+        
+    </div>
+
+    <script>
+        const baseStorage = {
+    "Itemcards": [
+        {
+
+        }
+            ]
+        };
+        //localStorage.clear();
+        
+
+        if (!localStorage.getItem("cards")) {            
+            localStorage.setItem("cards", JSON.stringify(baseStorage));
+        }
+
+        
+        function ranId(){
+            var nb = "";
+            for (let i=0; i <8;i++){
+                nb += Math.floor(Math.random() * (9 - 0 + 1)) + 0
+            }return nb;
+        }
+
+
+    
+document.addEventListener('DOMContentLoaded', function() {
+    const storedTasks = localStorage.getItem("cards");
+    console.log(storedTasks)
+    
+    if (storedTasks) {
+        // Step 2: Parse the stored JSON string back into an object
+        const tasks = JSON.parse(storedTasks);
+        console.log(tasks)
+        // Assuming tasks.itemsTask is an array of tasks
+        
+            // Step 3: Loop through each task and display it
+            tasks.Itemcards.forEach(task => {
+
+                displayTask(task); 
+            });
+        
+    }
+    // If there's no data, do nothing
+});
+
+
+
+
+function displayTask(task) {
+    for (const key in task) {
+        const taskDetails = task[key];
+
+
+
+        if (Array.isArray(taskDetails) && taskDetails.length === 4) { //si on ajoute de nv element changer le nb
+            const [Answer, question, color, randomId] = taskDetails;            
+            console.log('rewritting tasks')
+
+            const nvtask2 = document.createElement("div");
+
+            const card = `<div class="flip-card" onclick="this.classList.toggle('is-flipped')">
+                <div class="flip-card-inner">                    
+                    <div class="flip-card-front" style="background-color: ${color};">
+                    <img src="../../img/icon/bin.png" id="bin" onclick="delete_task(this)">
+                    <h2>${question}</h2>
+                    
+                </div>
+                <div class="flip-card-back" id="flip-card-back" style="background-color: ${color};">
+            <h2>${Answer}</h2>
+            `;
+
+            nvtask2.id = 'cardId'
+            nvtask2.className = 'cardId'
+            nvtask2.setAttribute("IdStorage", randomId.toString());
+            place = document.getElementById("mainCards");
+            place.appendChild(nvtask2);
+            nvtask2.insertAdjacentHTML("afterbegin", card);
+        }
+    }
+}
+
+
+function delete_task(img) {
+        console.log('deleting')
+        const task = img.closest('.cardId');
+        console.log(task)
+        const taskId = task.getAttribute('IdStorage'); 
+    
+        const tasksData = JSON.parse(localStorage.getItem("cards"));
+    
+        if (tasksData && tasksData.Itemcards) {
+            const index = tasksData.Itemcards.findIndex(item => Object.keys(item)[0] === taskId);
+            if (index !== -1) {
+                tasksData.Itemcards.splice(index, 1);                
+                localStorage.setItem("cards", JSON.stringify(tasksData));                        
+                task.remove();
+            }
+        }
+    }
+
+        function create(){
+            var question = document.getElementById("Question").value;
+            var Answer = document.getElementById("Answer").value;
+            const color = document.getElementById("color").value;
+            const card = `
+            <div class="flip-card" onclick="this.classList.toggle('is-flipped')">
+                <div class="flip-card-inner">                    
+                    <div class="flip-card-front" style="background-color: ${color};">
+                        <img src="../../img/icon/bin.png" id="bin" onclick="delete_task(this)">
+                    <h2>${question}</h2>                    
+                </div>
+                <div class="flip-card-back" id="flip-card-back" style="background-color: ${color};">
+            <h2>${Answer}</h2>
+            `
+            
+             
+            const nvtask2 = document.createElement("div");
+            nvtask2.className = 'cardId'
+            nvtask2.id = 'cardId'
+            place = document.getElementById("mainCards");
+            place.appendChild(nvtask2);
+            nvtask2.insertAdjacentHTML("afterbegin", card);
+            const randomId = ranId();
+            nvtask2.setAttribute("IdStorage", randomId.toString());
+            
+
+            document.querySelector("#Question").value = " "
+            document.querySelector("#Answer").value = " "
+            
+            
+            const newItem = {
+            [randomId]: [Answer, question, color, randomId],
+                };
+            
+                const data = localStorage.getItem("cards");
+                const jsonData2 = JSON.parse(data) || { "Itemcards": [] }; // Fallback in case there's no data
+            
+                // Find and update the existing item in jsonData2.itemsTask
+                const index = jsonData2.Itemcards.findIndex(item => Object.keys(item)[0] === randomId.toString());
+                if (index !== -1) {
+                    // Update the existing item
+                    jsonData2.Itemcards[index] = newItem;
+                } else {
+                    // If the item doesn't exist, add it
+                    jsonData2.Itemcards.push(newItem);
+                }
+            
+                localStorage.setItem("cards", JSON.stringify(jsonData2));
+
+                console.log(JSON.parse(localStorage.getItem("cards")));
+
+                
+                hide('edit')                    
+        }
+
+        function hide(what){
+            const h = document.getElementById(what);
+            h.style.display = "none";
+        }
+        function show(what){
+            const s = document.getElementById(what);
+            s.style.display = "block";
+        }
+    </script>
+
+    </div>
+    </div>
+  </div>
+</div>
+<footer class="navbar">
+    <a  style="opacity: 50%;" href="../to_do.html" >To do</a>
+    <a style="opacity: 50%;" href="../promodoro.html">Promodoro</a>
+    <a style="opacity: 50%;" href="../hub.html">Community</a>
+    <a class="active">Notes</a>
+  </footer>
+</body>
+</html>

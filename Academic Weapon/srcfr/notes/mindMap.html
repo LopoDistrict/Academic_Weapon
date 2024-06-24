@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+<body>
+    <div class="main">
+        <button id="mainNode">New Node</button>
+
+    
+   
+
+
+<h1>MindMap</h1>
+<div id="container"></div>
+
+
+<div class="newBranches">
+  <div class="tab">
+      <button class="tablinks" onclick="openCity(event, 'node')" id="defaultOpen">Main Node</button>
+      <button class="tablinks" onclick="openCity(event, 'parent')">Parent</button>
+      <button class="tablinks" onclick="openCity(event, 'child')">Child</button>
+      <button class="tablinks" onclick="openCity(event, 'Uchild')">Under Child</button>
+    </div>
+    
+    <div id="node" class="tabcontent">
+      <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+      <h3>Main Node</h3>
+      <input type="text" id="main" placeholder="Enter a main node">
+      <button id="Node" onclick="addNode()">Create</button>
+    </div>
+    
+    <div id="parent" class="tabcontent">
+      <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+      <h3>Parent</h3>
+      <input type="text" id="parent" placeholder="Enter a Parent">
+    </div>
+    
+    <div id="child" class="tabcontent">
+      <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+      <h3>Child</h3>
+      <input type="text" id="child" placeholder="Enter a child">
+    </div>
+
+    <div id="Uchild" class="tabcontent">
+      <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+      <h3>Under Child</h3>
+      <input type="text" id="uChild" placeholder="Enter an Under child">
+    </div>
+
+</div>
+</div>
+    
+
+
+    <script src="script.js"></script>
+    
+</body>
+</html>

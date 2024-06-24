@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../css/hubStyle.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+
+
+<div class="main">
+    <iframe src="http://academicweapon.line.pm/" frameborder="0" id="hubFrame"></iframe>    
+    <span class="loader" id="loader"></span>
+    <p style="position: absolute;top: 50%;left: 31%;" id="load">Chargement du Hub...</p> 
+    <!-- <p>The hub of the community is currently in maintenance. Please come back later.</p> -->
+
+    <div class="noNet" id="noNet" style="display: none;">
+        <img src="../img/icon/wifi.png" style="margin-top: 10px;">
+        <p>Vous n'êtes pas connecté à l'internet. Veuillez vérifier votre Wi-Fi ou vos données mobiles.</p>
+         <p>Il peut également s'agir d'une maintenance ou d'une erreur interne, veuillez donc redémarrer l'appli.</p> 
+        <button id="retry" onclick="check()">Retry</button>
+    </div>
+</div>
+<footer class="navbar">
+    <a style="font-size: 15px; opacity: 50%;" onclick="window.location.href ='to_do.html'">A faire</a>
+    <a style="font-size: 15px; opacity: 50%;" onclick="window.location.href ='promodoro.html'">Pomodoro</a>
+    <a class="font-size: 15px; active" onclick="window.location.href ='hub.html'">Communauté</a>
+    <a style="font-size: 15px; opacity: 50%;" onclick="window.location.href ='note_maker.html'">Notes</a>
+</footer>
+
+
+<script>
+    // no internet system doesnt work shit
+document.addEventListener("DOMContentLoaded", function () {
+    console.log(`Your network status is ${navigator.onLine ? "Online" : "Offline"} `);
+    console.log(navigator.onLine)
+
+           
+  });
+  setInterval(check, 2500)
+  console.log('loop')
+  
+  function check(){
+        hide('noNet');
+        if (navigator.onLine == true){
+            document.getElementById('load').style.display = 'none';
+            hide('loader');
+            show('hubFrame')
+                        
+        } else{          
+        console.log("offline")
+        show('noNet')
+        }    
+    }    
+
+  function hide(what){    
+            $(document).ready(function(){
+                $("#"+what).fadeOut();
+
+              });
+        }
+
+function show(what){
+    
+    $(document).ready(function(){
+        $("#"+what).fadeIn();
+
+      });
+}
+
+     
+    
+</script>
+    
+
+</body>
+</html>

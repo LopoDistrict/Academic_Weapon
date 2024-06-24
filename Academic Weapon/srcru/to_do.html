@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do list</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/todo_style.css" />
+</head>
+<body>
+    <div class="main">
+        <img src="../img/info.png" style="float: right; height: 45px; " onclick="showF('help')">
+
+        <div class="help" id="help">
+            <p onclick="hideF('help')" style="left: 1px;"><</p>
+<h1>Про програму</h1>
+             <p>Головний розробник: K0m0d0</p>
+             <p>Графічний дизайнер: K0m0d0 (за допомогою https://icons8.com/icons)</p>
+
+             <p>У програмі немає платного вмісту та реклами. Якщо вам подобаються програми та ви хочете підтримати мене, ви можете зробити декілька речей</p>
+             <p>1- Обговоріть програму з друзями, родиною та в соціальних мережах</p>
+             <p>2. Оцініть нас у Play Store</p>
+             <p>Ви можете дати мені гроші, натиснувши кнопку/посилання тут (усі гроші будуть використані для того, щоб спочатку оновити програму)</p>
+             <button onclick="window.location.href='https://en.tipeee.com/k0m0d0'" id="redirect">Переадресувати на вказану сторінку</button>
+        </div>
+
+        <script>
+            function hideF(what){
+                $("#" + what).fadeOut();
+            }
+            function showF(what){
+                $("#" + what).fadeIn();
+            }
+        </script>
+
+                    
+        <div class="content-wrap">
+        <div class="task" id="task">
+            <p id="close"  onclick="hide()">X</p>
+            <input type="text" id="titlet"  placeholder="Введіть нове завдання" maxlength="29">
+            <textarea id="desct"  placeholder="Опис завдання" maxlength="290"></textarea>
+            
+            <div class="options" id="options">
+                <div class="input-group">
+                    <input type="checkbox" id="prioritize" name="prioritize">
+                    <label for="prioritize" id="prioritizetxt">Розставити пріоритети</label>
+                  </div>
+
+                  <div class="input-group">
+                    <input type="date" id="start" name="start" value="2024-03-22"  />
+                    <label for="start">Кінцевий термін</label>
+                  </div>
+                  
+                  <div class="input-group2">
+                    <input type="color" id="color" name="color" value="#083550"/>
+                    <label for="color" id="colortxt">Вибір кольору</label>
+                  </div>                
+            </div>
+                
+
+            <button id="create" onclick="add()">Створити</button>
+            <p id="option" onclick="deploy()">+ Додаткова опція</p>
+        </div>
+
+        <div class="warning" id="warning">
+            <p id="warn" style="color: rgb(138, 2, 2);">⚠ Enter a name ⚠</p>
+            <p id="warntxt">In order to create a task, you need at leat to name it.</p>
+        </div>
+        <div class="taskmain" id="taskmain">
+        <h1 id="title">Список справ</h1>
+        <div class="top"></div>
+        
+    </div>
+    <div class="container" id="container">
+        <div class="bottom_container">
+            <button id="add" onclick='task()'>+</button>
+        </div>
+    </div>
+<footer class="navbar">
+    <a  class="active">Зробити </a>
+    <a style="font-size: 13px; opacity: 50%; " onclick="window.location.href ='promodoro.html'">Помодоро</a>
+    <a style="font-size: 13px; opacity: 50%; " onclick="window.location.href ='hub.html'">Спільнота</a>
+    <a style="font-size: 13px; opacity: 50%; " onclick="window.location.href ='note_maker.html'">Примітки</a>
+  </footer>
+        
+    </div>
+</div>
+<script src="../js/task_js.js"></script>
+</body>
+</html>
