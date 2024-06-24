@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Draggable Divs</title>
+<link rel="stylesheet" href="../css/notes/cornell_style.css" />
+<style>
+
+</style>
+</head>
+<body>
+<div id="container">
+    <button onclick="textInput()">Create Div</button>  
+    <button onclick="createArrow()">Create Arrow</button> 
+</div>
+
+<div class="input" id="input">
+    <input name="inputVal" id="inputVal">
+    <input type="color" id="color" name="color" value="#083550"/>
+    <label for="color" id="colortxt">Color picker</label>
+
+    <input type="checkbox" id="Transcparent" name="Transcparent">
+    <label for="Transcparent" id="TranscparentTxt">Transcparent</label>
+
+    <button id="create" onclick="createDiv()">Create</button>
+</div>
+
+<script>    
+    let rotationAngle = 0;
+
+    function rotate(element){
+        if (!element.clicked) {
+            element.clicked = true;
+            return;
+        }
+        rotationAngle += 20; // Increment the rotation angle
+        element.style.transform = "rotate(" + rotationAngle + "deg)";
+    }
+
+    function textInput(){
+        const input = document.getElementById("input");
+        input.style.display = "block";
+    }
+
+    function createDiv() {  
+        var txtInp = document.getElementById("inputVal").value;  
+        document.getElementById("input").style.display = "none";   
+        const container = document.getElementById("container");
+        const div = document.createElement("div");
+        div.className = "draggable";
+        div.id = "draggable";
+        div.style.left = "50px";
+        div.style.top = "50px";
+        const Transcparent = document.getElementById("Transcparent");
+
+        if (Transcparent.checked){
+            div.style.backgroundColor = "transparent"
+        }
+        const text = document.createElement("p");
+        text.textContent = txtInp;
+        text.contentEditable = true; // Allow text editing
+        div.appendChild(text);
+
+        // Make the div draggable
+        dragElement(div);
+
+        container.appendChild(div);
+
+        
+        // Add rotate function to the created div
+        div.addEventListener("click", function() { rotate(this); });
+        div.addEventListener("touchstart", function() { rotate(this); });
+    }
+
+    function createArrow() {
+        const container = document.getElementById("container");
+        const arrow = document.createElement("div");
+        arrow.className = "arrow";
+        arrow.style.left = "50px";
+        arrow.style.top = "50px";
+
+        const arrowImg = document.createElement("img");
+        arrowImg.src = "../../img/icon/arrow.png";
+        arrow.appendChild(arrowImg);
+
+        // Make the arrow draggable
+        dragElement(arrow);
+
+        container.appendChild(arrow);
+
+        // Add rotate function to the created arrow
+        arrow.addEventListener("click", function() { rotate(this); });
+        arrow.addEventListener("touchstart", function() { rotate(this); });
+    }
+
+    function dragElement(elmnt) {
+        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        elmnt.addEventListener("mousedown", dragMouseDown);
+        elmnt.addEventListener("touchstart", touchStart);
+
+        function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // get the mouse cursor position at startup:
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            // call a function whenever the cursor moves:
+            document.onmousemove = elementDrag;
+        }
+
+        function touchStart(e) {
+            e.preventDefault();
+            pos3 = e.touches[0].clientX;
+            pos4 = e.touches[0].clientY;
+            elmnt.addEventListener("touchmove", touchMove, false);
+            elmnt.addEventListener("touchend", touchEnd, false);
+        }
+
+        function touchMove(e) {
+            e.preventDefault();
+            pos1 = pos3 - e.touches[0].clientX;
+            pos2 = pos4 - e.touches[0].clientY;
+            pos3 = e.touches[0].clientX;
+            pos4 = e.touches[0].clientY;
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        }
+
+        function touchEnd() {
+            elmnt.removeEventListener("touchmove", touchMove);
+            elmnt.removeEventListener("touchend", touchEnd);
+        }
+
+        function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // calculate the new cursor position:
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            // set the element's new position:
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        }
+
+        function closeDragElement() {
+            /* stop moving when mouse button is released:*/
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+    }
+</script>
+</body>
+</html>

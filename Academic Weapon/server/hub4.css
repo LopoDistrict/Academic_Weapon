@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+html{
+    background-color: #121212;
+}
+
+
+#preview{
+  float: left;
+  margin: 10px;
+  width: 45%;
+  height: 85%;
+}
+p{
+  font-family: 'Roboto', sans-serif;
+}
+
+#add{
+  border-radius: 5px;
+  background-color: green;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  width: 90%;
+  font-family: 'Roboto', sans-serif;
+  color: white;  
+  display: flex;
+}
+
+#text{
+  height: 40px;
+  width: 200px;
+  border-radius: 5px;
+  margin-top: 5%;
+  font-family: 'Roboto', sans-serif;
+}
+
+#addText, #imgUpload{
+  padding-top: 20px; 
+  padding-bottom: 20px;
+}
+
+h3{
+  font-family: 'Roboto', sans-serif;
+  color: #fff;
+}
+
+    #img_div{
+    border-radius: 10px;
+    height: 130px;
+    display: flex;
+    margin-top: 20px;
+    background-color: rgba(0, 0, 121, 0.737);
+
+    }
+
+#uploading{
+  display: none;
+  border-radius: 10px;
+  background-color: #090982;
+  height: 10%;
+  text-align: center;
+  margin-top: 40px;
+  position: fixed;
+  width: 97%;
+  font-family: 'Roboto', sans-serif;
+}
+
+#search{
+    margin-left: 30%;
+    margin-top: 10%;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+}
+#UploadButton{
+    margin-top: 5%;
+  height: 40px;
+  width: 100px;
+  background-color: green;
+  border: transparent;
+  border-radius: 10px;
+}

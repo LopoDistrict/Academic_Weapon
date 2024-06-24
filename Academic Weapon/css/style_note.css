@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+#add{
+  border-radius: 7px;
+  width: 90%;
+  height: 110px;
+  margin-top: 10%;
+  margin-left: 5%;
+  background-color: rgb(33, 179, 0);
+  text-align: center;
+}
+#addimg{
+  margin-top: 5%;
+}
+body{
+  background-color: #121212;
+  display: flex;
+  flex-direction: column;
+  user-select: none
+}
+
+.navbar a:hover {
+  background: #f1f1f1;
+  color: black;
+}
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 90%;
+}
+.newItem{
+  display: none;
+  margin-top: 20%;
+  height: 300px;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  background-color: #B9C6E8;
+  border-radius: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  position: absolute;
+  width: 95%;
+  top: 25%;
+
+}
+#titlenItem{
+  text-align: center;
+  margin-top: 10%;
+}
+
+.file{
+  text-align: center;
+  width: 50%;
+  height: 160px;
+  border-top-left-radius: 40px 40px;
+  border-bottom-left-radius: 40px 40px;
+  background-color: #05A4D6;
+  margin-left: 10%;
+}
+
+.folder{
+  float: right;
+  text-align: center;
+  width: 50%;
+  height: 160px;
+  border-top-right-radius: 40px 40px;
+  border-bottom-right-radius: 40px 40px;
+  background-color: rgb(150, 135, 0);
+  margin-right: 10%;
+}
+.items{
+  display: flex;
+  flex-direction: row; 
+
+}
+
+.navbar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
+  height: 50px; /* Adjust based on your navbar's height */
+  background-color: #333; /* Example background color */
+  /* Other styling */
+}
+.navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  margin-left: -2%;
+  border-radius: 10pc;
+}
+
+
+
+.navbar a.active {
+  background-color: #208acb;
+  color: white;
+}
+.content-wrap {
+  flex: 1;
+}
+
+.navbar {
+  width: 100%;
+  height: 50px; /* Adjust based on your navbar's height */
+  background-color: #333; /* Example background color */
+  /* Other styling */
+}
+#notesType{
+  background-color: #B9C6E8;
+  margin-left: 10px;
+  height: 150%;
+  margin-right: 10px;
+  border-radius: 10px;
+  font-family: 'Roboto', sans-serif;
+  display: none;
+  position: absolute;
+  top: 25%;
+  
+}
+#titleNotes{
+  text-align: center;
+  
+}
+.notesExemple{
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 8px;
+  background-color: #05A4D6;
+  box-shadow: 4px 4px;
+}
+#titleNote{
+  margin-left: 20px;
+  padding-top: 20px;
+  font-size: 30px;
+}
+#desc{
+  margin-left: 20px;
+
+  padding-bottom: 20px;
+}
+#imgPreview{
+  float: left;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.note{
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  border-radius: 7px;
+  margin-top: 20px;
+  width: 90%;
+  background-color: #208acb;
+  margin-left: 5%;
+  height: 85px;
+}
+
+#param{
+  
+  border-radius: 7px;
+  width: 80%;
+  margin-left: 10%;
+  background-color: #4b4b4b;
+  text-align: center;
+  height: 110px;
+  font-family: 'Roboto', sans-serif;
+  background-color: #05A4D6;
+  display: none;
+
+}
+#nameInput{
+  border-radius: 7px;
+  height: 25%;
+  width: 60%;
+  border: transparent;
+  font-family: 'Roboto', sans-serif;
+}
+#create{
+  border-radius: 7px;
+  height: 27%;
+  width: 30%;
+  border: transparent;
+  background-color: rgb(33, 179, 0);
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+}

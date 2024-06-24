@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../css/empty.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+
+</head>
+<body style="background: rgb(18, 18, 18);">
+    <div class="main">
+    <button id="clearHighlights"><img src="../../img/icon/noHighlighpng.png" ></button>
+    <button id="highlightButton"><img src="../../img/icon/highlight.png" ></button>
+    <button id="highlightButton" onclick="reverse()"><img src="../../img/icon/reverse.png" style="height: 50px;"></button>
+    <button id="highlightButton" onclick="showJ('options')"><img src="../../img/icon/edit.png" ></button>
+    
+
+    
+    <div id="wrapper" style="position: relative;">    
+        <div class="mainTxt" id="mainTxt" style="background: rgb(18, 18, 18);">
+            <div id="Savebackdrop" class="Savebackdrop" style=" position: absolute; z-index: 1; white-space: pre-wrap; padding: 8px; overflow: hidden;"></div>
+            <div id="backdrop" class="graph-paper" style=" position: absolute; z-index: 1; white-space: pre-wrap; padding: 8px; overflow: hidden;"></div>
+            <textarea id="textArea" style="position: absolute; z-index: 2; background: transparent; padding: 8px; color: #fff; height: 35em; font-size: 16px;"></textarea>
+        </div>      
+
+        <div class="options" id="options">
+            <p style="float: left; margin-left: 10px;" onclick="hideJ('options')"><</p>
+            <h3 style="margin-right: 20px;">Options</h3>
+            <p>highlight Colors</p>
+            <button id="color" style="background-color: #e3ff00; border: transparent;" onclick="highlightCol = '#e3ff00'; hideJ('options')"></button>
+            <button id="color" style="background-color: #56ff00; border: transparent;" onclick="highlightCol = '#56ff00'; hideJ('options')"></button>
+            <button id="color" style="background-color: #00f9ff; border: transparent;" onclick="highlightCol = '#00f9ff'; hideJ('options')"></button>
+            <button id="color" style="background-color: #ff00db; border: transparent;" onclick="highlightCol = '#ff00db'; hideJ('options')"></button>
+            <button id="color" style="background-color: #bd00ff; border: transparent;" onclick="highlightCol = '#bd00ff'; hideJ('options')"></button>
+            <button onclick="save()" style="margin-top: 20px; margin-bottom: 20px;"><img src="../../img/icon/save.png" ></button>
+            <button id="download" onclick="saveDiv('backdrop')"><img src="../../img/icon/download.png" style="height: 50px;width: 50px;"></button>
+            <button id="print" onclick="printDiv('backdrop')"><img src="../../img/icon/print.png" ></button>
+        </div>
+    </div>
+    <script>
+        var doc = new jsPDF();
+
+        function saveDiv(divId) {
+            document.getElementById("download").addEventListener("click", function() {
+            const content = document.getElementById("backdrop").innerHTML;
+
+            // Initialize jsPDF
+            const doc = new jsPDF();
+
+            // Add content to PDF
+            doc.fromHTML(content, 15, 15, {
+                width: 170 // customize this according to your content
+            });
+
+            // Save PDF
+            doc.save("document.pdf");
+        });
+        }
+
+        function printDiv(divId){
+
+        let mywindow = window.open('', 'PRINT', 'height=650,width=900,top=100,left=150');
+
+        mywindow.document.write('</head><body >');
+        mywindow.document.write(document.getElementById(divId).innerHTML);
+        mywindow.document.write('</body></html>');
+
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10*/
+
+        mywindow.print();
+        mywindow.close();
+
+        return true;
+        }
+
+            
+    function hideJ(what){    
+            $(document).ready(function(){
+                $("#"+what).fadeOut();
+
+              });
+        }
+
+    function showJ(what){
+        
+        $(document).ready(function(){
+            $("#"+what).fadeIn();
+
+        });
+    }
+        const baseStorage = {
+        "ItemsTxt": []
+    };
+
+    if (!localStorage.getItem("txt")) {            
+        localStorage.setItem("txt", JSON.stringify(baseStorage));
+    }
+    //localStorage.clear();
+
+    const queryString = window.location.search.substring(1);
+    const argPair = queryString.split('=');
+    const argValue = decodeURIComponent(argPair[1]);
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const storedTasks = localStorage.getItem("txt");
+
+        if (storedTasks) {
+            const tasks = JSON.parse(storedTasks);
+            console.log(tasks   )
+            const currentItem = tasks.ItemsTxt.find(item => Object.keys(item)[0] === argValue.toString());
+
+            if (currentItem) {
+                const [txt, hl, hl2] = currentItem[argValue];
+                console.log('hl', hl)
+                console.log('hl2', hl2)
+                
+                document.getElementById('textArea').value = txt;
+                document.getElementById('Savebackdrop').innerHTML = hl2;
+                adjustHighlights();    
+            }
+        }
+    });
+
+    function save() {
+        const txt = document.getElementById('textArea').value;
+        const hl = document.getElementById('backdrop').innerHTML;
+        const hl2 = document.getElementById('Savebackdrop').innerHTML;
+
+        const newItem = {
+            [argValue]: [txt, hl, hl2],
+        };
+
+        const data = localStorage.getItem("txt");
+        const jsonData2 = JSON.parse(data) || { "ItemsTxt": [] };
+
+        const currentItem = jsonData2.ItemsTxt.find(item => Object.keys(item)[0] === argValue.toString());
+        if (currentItem){
+            currentItem[argValue] = [txt, hl, hl2]
+        } else {
+            jsonData2.ItemsTxt.push(newItem);
+        }
+
+        localStorage.setItem("txt", JSON.stringify(jsonData2));
+        window.location.href = `../note_maker.html`;
+    }
+    
+    function generateRandomId() {
+        return Math.random().toString(36).substring(2);
+    }
+    
+
+        function show(what){
+            const s = document.getElementById(what);
+            s.style.display = "block";
+        }
+        
+        function hide(what){
+            const h = document.getElementById(what);
+            h.style.display = "none";
+        }
+        var highlightCol = 'yellow';
+        function reverse(){
+            var textCol = document.getElementById("textArea").style;
+            
+            
+            if ( document.body.style.background  === 'rgb(18, 18, 18)'){
+                console.log('true');
+                textCol.color = '#111';
+                document.body.style.background  = 'rgb(255, 255, 255)';
+            }else{
+                textCol.color = '#fff';
+                document.body.style.background = 'rgb(18, 18, 18)';
+            }
+        }
+    
+    document.getElementById('highlightButton').addEventListener('click', function() {
+        highlightSelectedText();
+    });
+    
+    
+    document.getElementById('clearHighlights').addEventListener('click', function() {
+        //highlights = [];
+        Title();
+    });
+    /*
+    document.getElementById('clearHighlights').addEventListener('click', function() {
+        var txt = document.getElementById('textArea').style;
+        console.log(txt.fontSize);
+        console.log(typeof(txt.fontSize));
+        
+        if (txt.fontSize === "16px"){
+            txt.fontSize = "40px";
+        } else {
+            txt.fontSize = "16px";
+        }
+        
+        console.log('false');
+    });*/
+    
+    document.getElementById('textArea').addEventListener('input', function() {
+        adjustHighlights();
+        updateBackdrop();
+    });
+    
+    document.getElementById('textArea').addEventListener('scroll', function() {
+        document.getElementById('backdrop').scrollTop = this.scrollTop;
+        document.getElementById('backdrop').scrollLeft = this.scrollLeft;
+
+        document.getElementById('Savebackdrop').scrollTop = this.scrollTop;
+        document.getElementById('Savebackdrop').scrollLeft = this.scrollLeft;
+    });
+    
+    let highlights = [];
+    
+    function highlightSelectedText() {
+        
+        const textarea = document.getElementById('textArea');
+        const startPos = textarea.selectionStart;
+        const endPos = textarea.selectionEnd;
+    
+        if (startPos === endPos) {
+            alert('No text selected');
+            return;
+        }
+    
+        highlights.push({ start: startPos, end: endPos });
+        updateBackdrop();
+    }
+    
+    function adjustHighlights() {
+        
+        const currentText = document.getElementById('textArea').value;
+        highlights = highlights.map(hl => {
+            return { start: hl.start, end: Math.min(hl.end, currentText.length) };
+        }).filter(hl => hl.end > hl.start); // Remove any highlight that has collapsed
+    }
+
+    function Title() {        
+        const text = document.getElementById('textArea').value;
+        let html = text;
+        console.log('title')
+        // Sort highlights by start position and then apply them in reverse order to not mess up the indices
+        highlights.sort((a, b) => b.start - a.start).forEach(function(hl) {
+            const before2 = html.substring(0, hl.start);
+            const highlight2 = html.substring(hl.start, hl.end);
+            const after2 = html.substring(hl.end);
+            html = `${before2}<div style=font-size: 30px>${highlight}</div>${after2}`;
+        });
+        document.getElementById('backdrop').innerHTML = html.replace(/\n/g, '<br>');
+    }
+
+
+    function updateBackdrop() {        
+        const text = document.getElementById('textArea').value;
+        let html = text;
+        // Sort highlights by start position and then apply them in reverse order to not mess up the indices
+        highlights.sort((a, b) => b.start - a.start).forEach(function(hl) {
+            const before = html.substring(0, hl.start);
+            const highlight = html.substring(hl.start, hl.end);
+            const after = html.substring(hl.end);
+            html = `${before}<span style="background-color: ${highlightCol};">${highlight}</span>${after}`;
+        });
+        document.getElementById('backdrop').innerHTML = html.replace(/\n/g, '<br>');
+    }
+    </script>
+</div>
+</body>
+</html>

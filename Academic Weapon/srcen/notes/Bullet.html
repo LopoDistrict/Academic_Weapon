@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../css/bullet.css" />
+
+</head>
+<body style="background-color: #121212;">
+    <div class="main">
+    <button id="clearHighlights"><img src="../../img/icon/noHighlighpng.png" ></button>
+    <button id="highlightButton"><img src="../../img/icon/highlight.png" ></button>
+    <button id="highlightButton" onclick="reverse()"><img src="../../img/icon/reverse.png" style="height: 50px;"></button>
+    <button id="highlightButton" onclick="show('options')"><img src="../../img/icon/edit.png" ></button>
+    
+
+    
+    <div id="wrapper" style="position: relative;">                
+        <div id="backdrop" class="graph-paper" style=" position: absolute; z-index: 1; white-space: pre-wrap; padding: 8px; overflow: hidden;"></div>
+        <textarea id="textArea" style="position: absolute; z-index: 2; background: transparent; padding: 8px;color: #fff;"></textarea>
+
+        <div class="options" id="options">
+            <p style="float: left; margin-left: 10px;" onclick="hide('options')"><</p>
+            <h3 style="margin-right: 20px;">Options</h3>
+            <p>highlight Colors</p>
+            <button id="color" style="background-color: #e3ff00;" onclick="highlightCol = '#e3ff00'"></button>
+            <button id="color" style="background-color: #56ff00;" onclick="highlightCol = '#56ff00'"></button>
+            <button id="color" style="background-color: #00f9ff;" onclick="highlightCol = '#00f9ff'"></button>
+            <button id="color" style="background-color: #ff00db;" onclick="highlightCol = '#ff00db'"></button>
+            <button id="color" style="background-color: #bd00ff;" onclick="highlightCol = '#bd00ff'"></button>
+            <button onclick="save()">Save</button>
+        </div>
+    </div>
+    <script>
+
+
+    
+        const baseStorage = {
+        "ItemsTxt": []
+    };
+
+    if (!localStorage.getItem("txt")) {            
+        localStorage.setItem("txt", JSON.stringify(baseStorage));
+    }
+    //localStorage.clear();
+
+    const queryString = window.location.search.substring(1);
+    const argPair = queryString.split('=');
+    const argValue = decodeURIComponent(argPair[1]);
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const storedTasks = localStorage.getItem("txt");
+
+        if (storedTasks) {
+            const tasks = JSON.parse(storedTasks);
+            console.log(tasks   )
+            const currentItem = tasks.ItemsTxt.find(item => Object.keys(item)[0] === argValue.toString());
+
+            if (currentItem) {
+                const [txt, hl] = currentItem[argValue];
+                document.getElementById('textArea').value = txt;
+                document.getElementById('backdrop').innerHTML = hl;
+                adjustHighlights();    
+            }
+        }
+    });
+
+    function save() {
+        const txt = document.getElementById('textArea').value;
+        const hl = document.getElementById('backdrop').innerHTML;        
+
+        const newItem = {
+            [argValue]: [txt, hl],
+        };
+
+        const data = localStorage.getItem("txt");
+        const jsonData2 = JSON.parse(data) || { "ItemsTxt": [] };
+
+        const currentItem = jsonData2.ItemsTxt.find(item => Object.keys(item)[0] === argValue.toString());
+        if (currentItem){
+            currentItem[argValue] = [txt, hl]
+        } else {
+            jsonData2.ItemsTxt.push(newItem);
+        }
+
+        localStorage.setItem("txt", JSON.stringify(jsonData2));
+        window.location.href = `../note_maker.html`;
+    }
+    
+    function generateRandomId() {
+        return Math.random().toString(36).substring(2);
+    }
+    
+
+        function show(what){
+            const s = document.getElementById(what);
+            s.style.display = "block";
+        }
+        
+        function hide(what){
+            const h = document.getElementById(what);
+            h.style.display = "none";
+        }
+        var highlightCol = 'yellow';
+        function reverse(){
+            var textCol = document.getElementById("textArea").style;
+            
+            
+            if ( document.body.style.background  === 'rgb(18, 18, 18)'){
+                console.log('true');
+                textCol.color = '#111';
+                document.body.style.background  = 'rgb(255, 255, 255)';
+            }else{
+                textCol.color = '#fff';
+                document.body.style.background = 'rgb(18, 18, 18)';
+            }
+        }
+    
+    document.getElementById('highlightButton').addEventListener('click', function() {
+        highlightSelectedText();
+    });
+    
+    document.getElementById('clearHighlights').addEventListener('click', function() {
+        highlights = [];
+        updateBackdrop();
+    });
+    
+    document.getElementById('textArea').addEventListener('input', function() {
+        adjustHighlights();
+        updateBackdrop();
+    });
+    
+    document.getElementById('textArea').addEventListener('scroll', function() {
+        document.getElementById('backdrop').scrollTop = this.scrollTop;
+        document.getElementById('backdrop').scrollLeft = this.scrollLeft;
+    });
+    
+    let highlights = [];
+    
+    function highlightSelectedText() {
+        //console.log('highlightSelectedText()')
+        const textarea = document.getElementById('textArea');
+        const startPos = textarea.selectionStart;
+        const endPos = textarea.selectionEnd;
+    
+        if (startPos === endPos) {
+            alert('No text selected');
+            return;
+        }
+    
+        highlights.push({ start: startPos, end: endPos });
+        updateBackdrop();
+    }
+    
+    function adjustHighlights() {
+        //console.log('adjustHighlights()')
+        const currentText = document.getElementById('textArea').value;
+        highlights = highlights.map(hl => {
+            return { start: hl.start, end: Math.min(hl.end, currentText.length) };
+        }).filter(hl => hl.end > hl.start); // Remove any highlight that has collapsed
+    }
+    
+    function updateBackdrop() {
+        //console.log('updateBackdrop()')
+        const text = document.getElementById('textArea').value;
+        let html = text;
+        // Sort highlights by start position and then apply them in reverse order to not mess up the indices
+        highlights.sort((a, b) => b.start - a.start).forEach(function(hl) {
+            const before = html.substring(0, hl.start);
+            const highlight = html.substring(hl.start, hl.end);
+            const after = html.substring(hl.end);
+            html = `${before}<span style="background-color: ${highlightCol};">${highlight}</span>${after}`;
+        });
+        document.getElementById('backdrop').innerHTML = html.replace(/\n/g, '<br>');
+    }
+    
+
+
+    </script>
+</div>
+</body>
+</html>

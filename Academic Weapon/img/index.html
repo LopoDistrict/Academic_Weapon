@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Image Upload</title>
+<link rel="stylesheet" type="text/css" href="hub.css" />
+</head> 
+
+<body>
+  <div class="search">
+    <form aria-placeholder="Search by name and/or by topics" action=""></form>
+    <img src="search.png"  height="50px">
+  </div>
+  
+  <div class="add" id="add" onclick="show('uploading')">
+    <p id="addText" style="padding-left: 20px;">Upload content</p>  
+        <img src="upload.png" id="imgUpload" height="50px" style="padding-left: 20px">
+  </div>
+
+  <div class="uploading" id="uploading"> 
+    <form method="POST" action="index.php" enctype="multipart/form-data">
+          <input type="hidden" name="size" value="1000000">
+          <div>
+            <input type="file" name="image">
+          </div>
+          <div>
+        <textarea 
+          id="text" 
+          cols="40" 
+          rows="4" 
+          name="image_text" 
+          placeholder="Name"></textarea>
+          </div>
+          <div>
+                  <button type="submit" name="upload">POST</button>
+          </div>
+    </form>
+  </div>
+
+  <script src="script_note.js"></script>
+
+  <div id="content">
+    <h3> recently Uploaded files</h3>
+      <div id="img_div" onclick="location.href='test.pdf'">
+        <p style="padding-left: 40px; padding-right: 20px;">Neperian logarithm</p>    
+        
+        
+        <object data="test.pdf" type="application/pdf" width="100px" height="100px"></object>
+
+        <img style="float: right; " src="open.png" height="30px">
+        <img style="float: right; " src="download.png" height="30px" >
+      </div>
+
+      
+
+</div>
+
+
+</body>
+</html>

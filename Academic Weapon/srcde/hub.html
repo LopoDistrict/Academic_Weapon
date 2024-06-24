@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../css/hubStyle.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+
+
+<div class="main">
+    <iframe src="http://academicweapon.line.pm/" frameborder="0" id="hubFrame"></iframe>    
+    <span class="loader" id="loader"></span>
+    <p style="position: absolute;top: 50%;left: 31%;" id="load">Loading the Hub...</p> 
+    <!-- <p>The hub of the community is currently in maintenance. Please come back later.</p> -->
+
+    <div class="noNet" id="noNet" style="display: none;">
+        <img src="../img/icon/wifi.png" style="margin-top: 10px;">
+        <p>You're not connected to the internet. Please check your Wi-Fi or mobile data.</p>
+        <p>It may also be due to maintenance or an internal error, so please restart the app.</p>
+        <button id="retry" onclick="check()">Retry</button>
+    </div>
+</div>
+<footer class="navbar">
+    <a style="user-select: none; opacity: 50%;" href="to_do.html">To do</a>
+    <a style="user-select: none; opacity: 50%;" href="promodoro.html">Pomodoro</a>
+    <a class="user-select: none; active" href="hub.html">Community</a>
+    <a style="user-select: none; opacity: 50%;" href="note_maker.html">Notes</a>
+</footer>
+
+<script>
+
+    // no internet system doesnt work shit
+document.addEventListener("DOMContentLoaded", function () {
+    console.log(`Your network status is ${navigator.onLine ? "Online" : "Offline"} `);
+    console.log(navigator.onLine)
+
+           
+  });
+  setInterval(check, 2500)
+  console.log('loop')
+  
+  function check(){
+        hide('noNet');
+        if (navigator.onLine == true){
+            document.getElementById('load').style.display = 'none';
+            hide('loader');
+            show('hubFrame')
+                        
+        } else{          
+        console.log("offline")
+        show('noNet')
+        }    
+    }    
+
+  function hide(what){    
+            $(document).ready(function(){
+                $("#"+what).fadeOut();
+
+              });
+        }
+
+function show(what){
+    
+    $(document).ready(function(){
+        $("#"+what).fadeIn();
+
+      });
+}
+
+     
+    
+</script>
+    
+
+</body>
+</html>
