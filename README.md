@@ -11,3 +11,6 @@ You can use it for free / reuse the code or anything if you mention my name some
 # Update
 I will publish the app on the play store and maybe other android store, and if the app encounter demands for update / upgrade i will work for it. 
 But for now i think the app is good (still dont know if there is bugs) 
+
+# Installation
+I did not make an IOS version, but i can think about it. For now, until the app goes to play store there the apk in the root folder (the app size is 4.35mb)
