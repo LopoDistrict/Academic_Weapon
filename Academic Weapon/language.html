@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lang</title>
+    <link rel="stylesheet" type="text/css" href="css/lang.css" />
+</head>
+<body>
+    <div class="main">
+        <div class="container">
+            <div class="top">
+                <h1>Choose Your Language</h1>
+                <div class="choice">
+                    <button onclick="chooseLang('de')">🇩🇪 Deutsch 🇩🇪</button>
+                    <button onclick="chooseLang('en')">🇬🇧 English 🇺🇸</button>
+                    <button onclick="chooseLang('fr')">🇫🇷 Français 🇫🇷</button>
+                    <button onclick="chooseLang('es')">🇪🇸 Español 🇲🇽</button>
+                    
+                    <button onclick="chooseLang('ru')">🇺🇦 українська/російська 🇷🇺</button>
+                    <button style="filter: brightness(70%);">🇵🇹 Portugal/Brazil 🇧🇷 - Coming soon</button>
+                </div>
+            </div>
+        </div>
+        <script>
+            function chooseLang(lang){
+                localStorage.setItem("language", lang);
+                window.location.href = "loading.html"; 
+            }
+            
+            
+
+        </script>
+    </div>
+    
+</body>
+</html>
+

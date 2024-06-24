@@ -1,0 +1,8 @@
+{
+  "appId": "com.academicweapon.app",
+  "appName": "Academic weapon",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  }
+}

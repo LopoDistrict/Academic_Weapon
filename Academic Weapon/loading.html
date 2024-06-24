@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/loading.css" />
+</head>
+<body>
+    <div class="main">
+        <div class="container">
+           
+            <div class="top"></div>
+            <div class="center">
+                <img src="img/icon.ico" id="icon">
+                <span class="loader"></span>
+                <p id="advice">a</p>
+            </div>
+        </div>
+        <script>
+
+            function random_advice(){
+                const advice = document.getElementById("advice");
+                const l = [
+                    "this time you'll make an academic comeback",
+                    `"The study of man is the nature of man." Friedrich Nietzsche`, 
+                    `"You have to have studied a lot to know little." Montesquieu`,
+                    `"There is no satiety in the study." Erasmus`,
+                    `"There's no single way to study things." Aristote`,
+                    `"I want to live to study, not study to live." Francis Bacon`,
+                    `“Education is the passport to the future, for tomorrow belongs to those who prepare for it today.” – Malcolm X`,
+                    `An investment in knowledge pays the best interest. – Benjamin Franklin`,
+                    `“Intellectual growth should commence at birth and cease only at death.“ – Albert Einstein`,
+                    `Nobody says it's easy to work and study`,
+                    `Your worst enemy is procrastination, your best friend is discipline.`,
+                    `In Feynman Method we believe`,
+                    `The only thing that interferes with my learning is my education. - Albert Einstein`,
+                    `We must remember that intelligence is not enough. Intelligence plus character-that is the goal of true education - Martin Luther King, Jr.`
+                    ];
+                    console.log(l[Math.floor(Math.random() * l.length)]);
+                advice.innerHTML = (l[Math.floor(Math.random() * l.length)]) ;
+            }
+            random_advice();
+            check_internet()
+            const chosen = localStorage.getItem('language');
+            console.log(chosen)
+            localStorage.clear();
+            
+            if (chosen === "" || chosen === null){
+                window.location.href = "language.html"; 
+            }
+
+            function check_internet(){
+                if (navigator.onLine == true){
+                    console.log("connected");
+                    console.log(navigator.onLine);            
+                    start();
+                }else{
+
+                }
+            }
+
+            function start(){
+                function redirect(){
+                    window.location.href = `src${chosen}/to_do.html`; 
+                }
+                setInterval(redirect, 3000)
+              
+            }   
+
+
+        </script>
+        <footer>
+            <p style="color: grey; float: bottom;">Open Beta v0.0.1 - Academic Weapon</p>
+            <p style="color: grey; float: bottom;">The App may contain bugs</p>
+            <p style="color: grey; float: bottom;">Build 445.00.25.0.0.1.Open.B</p>
+        </footer>
+    </div>
+    
+</body>
+</html>
